@@ -1,0 +1,15 @@
+.gridItem {
+    padding-right: 2em;
+}
+.inputElement {
+    display: inline-block !important;
+    padding-right: .5em !important;
+}
+.label {
+    padding-right: 1em !important;
+    display: inline-block !important;
+}
+.searchBarContainer {
+    width: 50%;
+    max-width: 30vw;
+}

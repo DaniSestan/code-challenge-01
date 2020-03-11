@@ -1,0 +1,14 @@
+.imageContainer {
+    height: 10em;
+    width: 10em;
+    margin: 2em;
+    padding-top: 1em;
+}
+.image {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+.bg {
+    background-color: red;
+}
