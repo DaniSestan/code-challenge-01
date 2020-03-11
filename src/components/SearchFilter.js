@@ -8,34 +8,50 @@ import Checkbox from "@material-ui/core/Checkbox";
 class SearchFilter extends React.Component {
     constructor(props){
         super(props);
-        this.filters = [
-            'fire',
-            'ice',
-            'water'
-        ]
         this.state = {
-
+            filters: [
+                'foo',
+                'bar',
+                'baz'
+            ]
         }
     }
 
-    renderFilters() {
-        return (
-            <FormGroup row>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            // checked={this.state.checkedSearchFilters}
-                            // onChange={ (e) => {
-                            //     this.setState({ checkedSearchFilters: e.target.checked })
-                            // } }
-                            // value="checkedSearchFilters"
-                            // color="primary"
-                        />
-                    }
-                    label="Add search filters"
-                />
-            </FormGroup>
-        )
+    handleOnChange = (filter, checkedAttrib) => {
+        if(checkedAttrib){
+            const filtersArr = this.state.filters;
+            filtersArr.push(filter)
+            console.log('new filter arr: ', filtersArr)
+        }
+        console.log('handleonchange arg', filter)
+        console.log('handleonchange', this.state.filters)
+    }
+
+    getCheckedFilter = (filter) => {
+        console.log('getchecked arg: ', filter)
+        console.log('filters state: ', this.state.filters)
+        return true;
+    }
+
+    renderFilters =() => {
+        const filters = this.state.filters;
+        return filters.map((filter, index) => {
+            return (
+                <div key={filter}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={this.getCheckedFilter()}
+                                onChange={(e) => this.handleOnChange(e.target.value, e.target.attributes.checked)}
+                                value={filter}
+                                color="primary"
+                            />
+                        }
+                        label="Add search filters"
+                    />
+                </div>
+            )
+        })
     }
 
     render() {
@@ -50,13 +66,17 @@ class SearchFilter extends React.Component {
                     <Typography variant="h6">
                         Type:
                     </Typography>
-                    { this.renderFilters() }
+                    <FormGroup row>
+                        { this.renderFilters() }
+                    </FormGroup>
                 </Grid>
                 <Grid item>
                     <Typography variant="h6">
                         Weaknesses:
                     </Typography>
-                    { this.renderFilters() }
+                    <FormGroup row>
+                        { this.renderFilters() }
+                    </FormGroup>
                 </Grid>
             </Grid>
         )
