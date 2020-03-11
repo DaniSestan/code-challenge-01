@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,21 +11,16 @@ import Typography from '@material-ui/core/Typography';
 
 import { pokemon } from "../actions";
 
-
 class PokemonList extends React.Component {
+
+    state = {
+    }
 
     componentDidMount() {
         this.props.fetchPokemon('');
     }
 
-    renderResultsHdr () {
-        return (
-            <Typography variant="h5">
-                Results
-            </Typography>
-        )
-    }
-    renderList() {
+    renderList = () => {
         const pokemon = this.props.pokemon.pokemon;
         return pokemon.map((pokemon, index) => {
             return(

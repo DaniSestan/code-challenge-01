@@ -13,3 +13,11 @@
     width: 50%;
     max-width: 30vw;
 }
+.resultsHdr {
+    padding-top: 5em;
+    padding-right: 5em;
+    display: inline-block !important;
+}
+.clearResultsBtn {
+    display: inline-block !important;
+}
