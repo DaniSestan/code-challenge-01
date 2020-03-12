@@ -3,23 +3,29 @@ import axios from 'axios';
 import { pokemonRequestTypes } from "../constants";
 
 const filterResults = (query, response) => {
-    let testQuery = {
-        term: 'saur',
-        type: [],
-        weaknesses: []
-    }
-    console.log('#######', response);
-    let results = response;
-    // let results = {};
+    let results = response.filter( pokemon => {
 
-    let foo = results.filter( pokemon => {
-        if (pokemon.type.includes('Fire'))
-            return pokemon;
+        let match = true;
+
+        const check = (filtersArr) => {
+            query[filtersArr].forEach( filter => {
+                if(!pokemon[filtersArr].includes(filter)){
+                    return match = false;
+                }
+            })
+        }
+
+        if(pokemon.name.toLowerCase().includes(query.term)){
+            check('type');
+            check('weaknesses');
+            if (match)
+                return pokemon;
+        }
     })
 
-    console.log('foo!!!!!!!!!', foo);
     return results;
 }
+
 export const pokemon = pokemon => (dispatch, getState) => {
     dispatch(requestLoading(pokemonRequestTypes.FETCH_POSTS_REQUEST));
     return axios.get(`https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json`)

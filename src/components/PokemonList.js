@@ -16,12 +16,10 @@ class PokemonList extends React.Component {
     state = {
     }
 
-    componentDidMount() {
-        this.props.fetchPokemon('asdf');
-    }
-
     renderList = () => {
-        const pokemon = this.props.pokemon.pokemon;
+
+        const pokemon = this.props.list;
+
         return pokemon.map((pokemon, index) => {
             return(
                 <div key = {pokemon.id}>
@@ -88,7 +86,6 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => {
-    console.log('state mapped: ', state)
     return {
         pokemon: state.pokemon,
     }

@@ -1,30 +1,36 @@
 import React from 'react';
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import { withStyles } from '@material-ui/styles';
 
 import Header from "./Header";
 import SearchBar from "./SearchBar";
-import PostList from "./PokemonList";
-
-const styles = theme => ({
-    container: {
-        width: '90vw !important'
-    },
-    gridItem: {
-        marginTop: '5em',
-        marginBottom: '5em'
-    }
-})
+import PokemonList from "./PokemonList";
+import { pokemon } from '../actions';
+import {connect} from "react-redux";
+import styles from './App.module.css'
 
 class App extends React.Component {
 
     state = {
+        query: {
+            term: '',
+            type: [],
+            weaknesses: []
+        },
+        list: {}
+    }
 
+    componentDidMount() {
+        this.setState({ list: this.props.fetchPokemon(this.state.query)})
+    }
+
+    getQuery = (query) => {
+        this.setState({query: query})
+        this.props.fetchPokemon(query)
     }
 
     render() {
+
+        console.log('##########state', this.state)
         const { classes } = this.props;
 
         return (
@@ -38,18 +44,29 @@ class App extends React.Component {
                     <Header/>
                 </Grid>
                 <Grid item
-                      className = {[classes.container, classes.gridItem].join(' ')}
+                      className = {[styles.container, styles.gridItem].join(' ')}
                 >
-                    <SearchBar/>
+                    <SearchBar query={this.getQuery}/>
+                    {/*<SearchBar/>*/}
                 </Grid>
                 <Grid item
-                      className = {classes.container}
+                      className = {styles.container}
                 >
-                    <PostList/>
+                    <PokemonList list={this.props.pokemon.pokemon}/>
                 </Grid>
             </Grid>
         )
     }
 }
 
-export default withStyles(styles)(App);
+const mapDispatchToProps = {
+    fetchPokemon: pokemon
+};
+
+const mapStateToProps = (state) => {
+    return {
+        pokemon: state.pokemon,
+    }
+};
+
+export default (connect(mapStateToProps, mapDispatchToProps)(App));

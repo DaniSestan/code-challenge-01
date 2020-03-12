@@ -51,6 +51,7 @@ class SearchFilter extends React.Component {
                 {'Fairy': false},
                 {'Dark': false},
             ],
+
         }
     }
 
@@ -80,6 +81,7 @@ class SearchFilter extends React.Component {
         Object.values(this.state[key].map((o) =>
             filters.push(Object.keys(o)[0])
         ))
+
         return filters.map((filter, index) => {
             return (
                 <div key={filter}>

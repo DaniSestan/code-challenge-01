@@ -19,19 +19,35 @@ class SearchBar extends React.Component {
         returnResults: false,
         checkedSearchFilters: false,
         clearedSearch: true,
-        filters: ''
-
-    }
-
-    componentDidMount() {
-        this.props.fetchPokemon('');
+        filters: {
+            weaknesses: [],
+            type: []
+        },
     }
 
     onSearchSubmit = (event) => {
         this.setState({returnResults: true})
-        let selectedType = [];
-        let selectedWeaknesses = []
-        // this.props.fetchPokemon(this.state.term);
+        console.log('######check', this.state.filters)
+        let type = []
+        let weaknesses = []
+
+        if(this.state.filters !== {}) {
+            Object.values(this.state.filters.type).map( f => {
+                if (f[Object.keys(f)[0]])
+                    type.push(Object.keys(f)[0])
+            })
+            Object.values(this.state.filters.weaknesses).map( f => {
+                if (f[Object.keys(f)[0]])
+                    weaknesses.push(Object.keys(f)[0])
+            })
+        }
+
+        this.props.query({
+            term: this.state.term,
+            type: type,
+            weaknesses: weaknesses
+        })
+
     };
 
     handleClearSearch = () => {
@@ -39,6 +55,12 @@ class SearchBar extends React.Component {
             returnResults: false,
             term: '',
             checkedSearchFilters: false
+        })
+
+        this.props.fetchPokemon({
+            term: '',
+            type: [],
+            weaknesses: []
         })
 
     }
@@ -57,7 +79,7 @@ class SearchBar extends React.Component {
         return (
             <div>
                 <Typography variant="h5"
-                            color="textSecondary"
+                        color="textSecondary"
                             className={searchBarStyles.resultsHdr}
                 >
                     {this.props.pokemon.pokemon.length} results
