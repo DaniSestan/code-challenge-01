@@ -1,0 +1,9 @@
+.wrapGroup {
+    width: 50vw;
+    margin: auto;
+}
+.filtersGroup {
+    display: inline;
+    float: none;
+    padding: 5em;
+}

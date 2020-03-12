@@ -5,19 +5,19 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
-import { pokemon } from "../actions";
-
+import { pokemon } from '../actions';
+import pokemonListStyles from './PokemonList.module.css'
 class PokemonList extends React.Component {
 
     state = {
     }
 
     componentDidMount() {
-        this.props.fetchPokemon('');
+        this.props.fetchPokemon('asdf');
     }
 
     renderList = () => {
@@ -27,7 +27,10 @@ class PokemonList extends React.Component {
                 <div key = {pokemon.id}>
                     <ListItem>
                         <ListItemAvatar>
-                            <Avatar alt={pokemon.name} src={pokemon.img} />
+                            <Avatar alt={pokemon.name}
+                                    src={pokemon.img}
+                                    className={pokemonListStyles.large}
+                            />
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -85,8 +88,9 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => {
+    console.log('state mapped: ', state)
     return {
-        pokemon: state.pokemon
+        pokemon: state.pokemon,
     }
 };
 

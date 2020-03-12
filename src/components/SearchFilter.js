@@ -5,49 +5,95 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
+import searchFilterStyles from './SearchFilter.module.css'
+
 class SearchFilter extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            filters: [
-                'foo',
-                'bar',
-                'baz'
-            ]
+            type: [
+                {'Normal': false},
+                {'Fighting': false},
+                {'Flying': false},
+                {'Poison': false},
+                {'Ground': false},
+                {'Rock': false},
+                {'Bug': false},
+                {'Ghost': false},
+                {'Steel': false},
+                {'Fire': false},
+                {'Water': false},
+                {'Grass': false},
+                {'Electric': false},
+                {'Psychic': false},
+                {'Ice': false},
+                {'Dragon': false},
+                {'Fairy': false},
+                {'Dark': false},
+            ],
+            weaknesses: [
+                {'Normal': false},
+                {'Fighting': false},
+                {'Flying': false},
+                {'Poison': false},
+                {'Ground': false},
+                {'Rock': false},
+                {'Bug': false},
+                {'Ghost': false},
+                {'Steel': false},
+                {'Fire': false},
+                {'Water': false},
+                {'Grass': false},
+                {'Electric': false},
+                {'Psychic': false},
+                {'Ice': false},
+                {'Dragon': false},
+                {'Fairy': false},
+                {'Dark': false},
+            ],
         }
     }
 
-    handleOnChange = (filter, checkedAttrib) => {
-        if(checkedAttrib){
-            const filtersArr = this.state.filters;
-            filtersArr.push(filter)
-            console.log('new filter arr: ', filtersArr)
-        }
-        console.log('handleonchange arg', filter)
-        console.log('handleonchange', this.state.filters)
+    handleOnChange = async (key, filter) => {
+        let filtersArray = this.state[key];
+
+        await Object.values(filtersArray.map( (o, i) => {
+                if (Object.keys(o)[0] == filter)
+                    return o[filter] ? filtersArray[i] = {[filter]: false} : filtersArray[i] = {[filter]: true};
+            })
+        )
+        await this.setState({ [key]: filtersArray })
+        this.props.selectedFilters(this.state);
     }
 
-    getCheckedFilter = (filter) => {
-        console.log('getchecked arg: ', filter)
-        console.log('filters state: ', this.state.filters)
-        return true;
+    getCheckedFilter = (key, filter) => {
+        Object.values(this.state[key].map((o) => {
+                if (Object.keys(o)[0] == filter) {
+                    return Object.keys(o)[0][filter]
+                }
+            })
+        )
     }
 
-    renderFilters =() => {
-        const filters = this.state.filters;
+    renderFilters = (key) => {
+        let filters = []
+        Object.values(this.state[key].map((o) =>
+            filters.push(Object.keys(o)[0])
+        ))
         return filters.map((filter, index) => {
             return (
                 <div key={filter}>
                     <FormControlLabel
                         control={
                             <Checkbox
-                                checked={this.getCheckedFilter()}
-                                onChange={(e) => this.handleOnChange(e.target.value, e.target.attributes.checked)}
+                                checked={this.getCheckedFilter(key, filter)}
+                                onChange={(e) => this.handleOnChange(key, e.target.value, e.target.attributes)}
                                 value={filter}
                                 color="primary"
+                                disabled={this.props.onSubmit}
                             />
                         }
-                        label="Add search filters"
+                        label={filter}
                     />
                 </div>
             )
@@ -56,29 +102,24 @@ class SearchFilter extends React.Component {
 
     render() {
         return (
-            <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-            >
-                <Grid item>
+            <div className={searchFilterStyles.wrapGroup}>
+                <div className={searchFilterStyles.filtersGroup}>
                     <Typography variant="h6">
                         Type:
                     </Typography>
                     <FormGroup row>
-                        { this.renderFilters() }
+                        { this.renderFilters('type') }
                     </FormGroup>
-                </Grid>
-                <Grid item>
+                </div>
+                <div className={searchFilterStyles.filtersGroup}>
                     <Typography variant="h6">
                         Weaknesses:
                     </Typography>
                     <FormGroup row>
-                        { this.renderFilters() }
+                        { this.renderFilters('weaknesses') }
                     </FormGroup>
-                </Grid>
-            </Grid>
+                </div>
+            </div>
         )
     }
 }

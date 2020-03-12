@@ -1,9 +1,9 @@
 import { pokemonRequestTypes } from "../constants";
 
 const initialState = {
-  loading: false,
-  error: null,
-  pokemon: []
+    loading: false,
+    error: null,
+    pokemon: [],
 };
 
 export default (state = initialState, action) => {
@@ -14,11 +14,12 @@ export default (state = initialState, action) => {
                 loading: true
             };
         case pokemonRequestTypes.FETCH_POSTS_SUCCESS:
+            console.log(action)
             return {
                 ...state,
                 loading: false,
                 error: null,
-                pokemon: action.payload
+                pokemon: action.payload,
             };
         case pokemonRequestTypes.FETCH_POSTS_FAILURE:
             return {

@@ -1,11 +1,11 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from '@material-ui/core/Grid';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import clsx from 'clsx';
 
 import searchBarStyles from './SearchBar.module.css';
 import {pokemon} from "../actions";
@@ -16,8 +16,10 @@ class SearchBar extends React.Component {
 
     state = {
         term: '',
-        returnResults: true,
-        checkedSearchFilters: false
+        returnResults: false,
+        checkedSearchFilters: false,
+        clearedSearch: true,
+        filters: ''
 
     }
 
@@ -26,13 +28,28 @@ class SearchBar extends React.Component {
     }
 
     onSearchSubmit = (event) => {
-        event.preventDefault();
-        this.props.onSubmit(this.state.term);
+        this.setState({returnResults: true})
+        let selectedType = [];
+        let selectedWeaknesses = []
+        // this.props.fetchPokemon(this.state.term);
     };
+
+    handleClearSearch = () => {
+        this.setState({
+            returnResults: false,
+            term: '',
+            checkedSearchFilters: false
+        })
+
+    }
+
+    getSelectedFilters = (filters) => {
+        this.setState({filters: filters})
+    }
 
     renderSearchFilters = () => {
         return (
-            <SearchFilter/>
+            <SearchFilter onSubmit={this.state.returnResults} selectedFilters={this.getSelectedFilters}/>
         )
     }
 
@@ -47,9 +64,9 @@ class SearchBar extends React.Component {
                 </Typography>
                 <Button color="primary"
                         className={searchBarStyles.clearResultsBtn}
-                        onClick={ () => this.props.fetchPokemon('')}
+                        onClick={ () => this.handleClearSearch()}
                 >
-                    Clear search results
+                    Clear results | New Search
                 </Button>
             </div>
         )
@@ -81,6 +98,7 @@ class SearchBar extends React.Component {
                                    fullWidth={true}
                                    value={this.state.term}
                                    onChange={e => this.setState({term: e.target.value})}
+                                   disabled={this.state.returnResults}
                         />
                         <FormControlLabel
                             control={
@@ -91,6 +109,7 @@ class SearchBar extends React.Component {
                                     } }
                                     value="checkedSearchFilters"
                                     color="primary"
+                                    disabled={this.state.returnResults}
                                 />
                             }
                             label="Add search filters"
@@ -102,7 +121,10 @@ class SearchBar extends React.Component {
                         <Button variant="outlined"
                                 color="primary"
                                 size="large"
-                                onClick={ () => { this.setState({returnResults: true})}}
+                                onClick={ this.onSearchSubmit }
+                                className={clsx({
+                                    [searchBarStyles.buttonOnRenderResults] : this.state.returnResults
+                                })}
 
                         >
                             Catch 'em!

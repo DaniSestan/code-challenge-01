@@ -21,3 +21,6 @@
 .clearResultsBtn {
     display: inline-block !important;
 }
+.buttonOnRenderResults {
+    display: none !important;
+}
