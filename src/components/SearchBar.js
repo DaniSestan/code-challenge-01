@@ -47,6 +47,8 @@ class SearchBar extends React.Component {
             weaknesses: weaknesses
         })
 
+        // this.props.fetchPokemon()
+
     };
 
     handleClearSearch = () => {

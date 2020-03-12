@@ -32,7 +32,6 @@ class App extends React.Component {
 
     getDetails = (pokemonData) => {
         this.setState({pokemonData: pokemonData})
-        console.log('$$$$$$$$$', pokemonData);
     }
 
     returnList = () => {

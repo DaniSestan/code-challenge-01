@@ -4,7 +4,6 @@ const initialState = {
     loading: false,
     error: null,
     pokemon: [],
-    pokemonUnfiltered: []
 };
 
 export default (state = initialState, action) => {
@@ -15,13 +14,11 @@ export default (state = initialState, action) => {
                 loading: true
             };
         case pokemonRequestTypes.FETCH_POSTS_SUCCESS:
-            console.log('^^^^^^^^', action.payload[1])
             return {
                 ...state,
                 loading: false,
                 error: null,
-                pokemon: action.payload[0],
-                pokemonUnfiltered: action.payload[1]
+                pokemon: action.payload,
             };
         case pokemonRequestTypes.FETCH_POSTS_FAILURE:
             return {

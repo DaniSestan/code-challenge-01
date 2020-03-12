@@ -28,15 +28,17 @@ class Details extends React.Component {
 
     //TODO: the update to this.state.pokemonData which should be used to render the components
     // data is working, insofar as this change can be logged when the Button for details is clicked.
-    // This additional details button for each pokemon being referenced has been commented out.
-    // However, updated data from state after clicking button is not rendering to page correctly.
+    // The button for each pokemon being referenced has been commented out.
+    // However, that updated data is not rendering to page correctly.
     // May be issue with loading state -- add changes to address this.
 
     handleDetailsPointer = (pokemon) => {
-        let pokemonList = this.props.pokemon.pokemonUnfiltered;
+        this.props.fetchPokemon({term:'', type:[], weaknesses:[]})
+        let pokemonList = this.props.pokemon.pokemon;
         let pokemonData = pokemonList.filter( (e) => {
             return e.name == pokemon
         })
+        console.log('############pokemonData', pokemonData)
         this.setState({pokemonData:pokemonData})
     }
 
@@ -109,7 +111,7 @@ class Details extends React.Component {
     }
 
     render() {
-        console.log('CURRENT POKEMON', this.state.pokemonData)
+        console.log('#############CURRENT POKEMON', this.props.pokemon.pokemon)
         const pokemon = this.state.pokemonData
         return (
             <div className={detailsStyles.container}>
