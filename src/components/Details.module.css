@@ -1,0 +1,42 @@
+.extraLarge {
+    height: 10em !important;
+    width: 10em !important;
+}
+.gridItem {
+    padding: 1em;
+}
+.arrItem {
+    display: inline-block;
+}
+.evolText {
+    display: inline-block;
+    /*padding: 1em;*/
+}
+.evolBtn {
+    display: inline-block;
+    /*padding: 2em;*/
+
+}
+.btnList {
+    display: inline-block;
+    padding: 1em;
+}
+.container {
+    /*padding: 3em !important;*/
+}
+.backBtn {
+    margin: 2em !important;
+}
+.title {
+    display: inline-block;
+    padding-right: 1em;
+    align-content: baseline !important;
+    vertical-align: center;
+}
+.stat {
+    display: inline-block;
+    /*padding: 2em;*/
+    align-content: baseline !important;
+    vertical-align: center;
+
+}

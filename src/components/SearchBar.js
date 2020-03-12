@@ -27,7 +27,6 @@ class SearchBar extends React.Component {
 
     onSearchSubmit = (event) => {
         this.setState({returnResults: true})
-        console.log('######check', this.state.filters)
         let type = []
         let weaknesses = []
 

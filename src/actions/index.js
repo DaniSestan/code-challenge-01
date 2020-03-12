@@ -3,10 +3,9 @@ import axios from 'axios';
 import { pokemonRequestTypes } from "../constants";
 
 const filterResults = (query, response) => {
-    let results = response.filter( pokemon => {
-
+    let results = [response]
+    let queriedResults = response.filter( pokemon => {
         let match = true;
-
         const check = (filtersArr) => {
             query[filtersArr].forEach( filter => {
                 if(!pokemon[filtersArr].includes(filter)){
@@ -22,7 +21,7 @@ const filterResults = (query, response) => {
                 return pokemon;
         }
     })
-
+    results.push(queriedResults)
     return results;
 }
 

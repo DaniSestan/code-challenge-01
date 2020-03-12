@@ -35,6 +35,10 @@ class App extends React.Component {
         console.log('$$$$$$$$$', pokemonData);
     }
 
+    returnList = () => {
+        this.setState({pokemonData: null})
+    }
+
     renderPokemonList = () => {
         return (
             <PokemonList list={this.props.pokemon.pokemon} details={this.getDetails}/>
@@ -43,13 +47,11 @@ class App extends React.Component {
 
     renderDetails = () => {
         return (
-            <Details data={this.state.pokemonData}/>
+            <Details data={this.state.pokemonData} returnList={this.returnList}/>
         )
     }
 
     render() {
-
-        console.log('#######', this.state);
 
         return (
             <Grid
