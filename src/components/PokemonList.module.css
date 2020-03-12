@@ -3,3 +3,10 @@
     height: 5em !important;
     padding: 2em;
 }
+.listItem {
+    /*float: left !important*/
+
+}
+.wrap {
+    /*width: 100vw !important*/
+}

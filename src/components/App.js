@@ -7,6 +7,7 @@ import PokemonList from "./PokemonList";
 import { pokemon } from '../actions';
 import {connect} from "react-redux";
 import styles from './App.module.css'
+import Details from "./Details";
 
 class App extends React.Component {
 
@@ -16,7 +17,8 @@ class App extends React.Component {
             type: [],
             weaknesses: []
         },
-        list: {}
+        list: {},
+        pokemonData: null
     }
 
     componentDidMount() {
@@ -28,10 +30,26 @@ class App extends React.Component {
         this.props.fetchPokemon(query)
     }
 
+    getDetails = (pokemonData) => {
+        this.setState({pokemonData: pokemonData})
+        console.log('$$$$$$$$$', pokemonData);
+    }
+
+    renderPokemonList = () => {
+        return (
+            <PokemonList list={this.props.pokemon.pokemon} details={this.getDetails}/>
+        )
+    }
+
+    renderDetails = () => {
+        return (
+            <Details data={this.state.pokemonData}/>
+        )
+    }
+
     render() {
 
-        console.log('##########state', this.state)
-        const { classes } = this.props;
+        console.log('#######', this.state);
 
         return (
             <Grid
@@ -47,12 +65,12 @@ class App extends React.Component {
                       className = {[styles.container, styles.gridItem].join(' ')}
                 >
                     <SearchBar query={this.getQuery}/>
-                    {/*<SearchBar/>*/}
                 </Grid>
                 <Grid item
                       className = {styles.container}
                 >
-                    <PokemonList list={this.props.pokemon.pokemon}/>
+                    {!this.state.pokemonData ? this.renderPokemonList() : this.renderDetails()}
+
                 </Grid>
             </Grid>
         )
