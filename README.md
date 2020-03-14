@@ -1,4 +1,4 @@
-##Dependencies:
+## Dependencies:
 * @material-ui/core: ^4.9.5,
 * @material-ui/icons: ^4.9.1,
 * @material-ui/styles: ^4.9.0,
@@ -9,10 +9,9 @@
 * react-scripts: 3.4.0,
 * redux: ^4.0.5,
 * redux-thunk: ^2.3.0
-##Build process:
+## Build process:
 * Installed packages (refer to dependencies list)
-* Setup initial directory structure:
-![Directory Structure](dirStructure.png "Directory Structure")
+* Setup initial directory structure
 * Created dummy reducer in reducers/index.js 
 ```$xslt
 import { combineReducers } from "redux";
